@@ -1,13 +1,13 @@
 # MetaCoin TronBox
 
-MetaCoin example TronBox project
+MetaCoin example TronBox project. Originally forked from [truffle-box/metacoin](https://github.com/truffle-box/metacoin-box).
 
 
 
 ### Configure Network Information
 
 Network configuration is generally divided into development environment (development) and online formal production (production), but other test network environments can be added.
-In this example we use TronGrid, a test server which is reset daily:
+In this example we use TronGrid, a test server which is reset daily, as the development environent, and the Trondev docker container, for a private network:
 
 ```
 module.exports = {
@@ -17,10 +17,20 @@ module.exports = {
       privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
       consume_user_resource_percent: 30,
       fee_limit: 100000000,
-      fullNode: "https://api.trongrid.io:8090",
-      solidityNode: "https://api.trongrid.io:8091",
+      fullNode: "https://api.trongrid.io",
+      solidityNode: "https://api.trongrid.io",
       eventServer: "https://api.trongrid.io",
       network_id: "*" // Match any network id
+    },
+    trondev: {
+      from: 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
+      privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
+      consume_user_resource_percent: 30,
+      fee_limit: 100000000,
+      fullNode: "http://127.0.0.1:8090",
+      solidityNode: "http://127.0.0.1:8091",
+      eventServer: "http://127.0.0.1:8092",
+      network_id: "*"
     }
   }
 };
@@ -50,18 +60,41 @@ First off, install the dependencies
 npm install
 ```
 
-To work properly, the Dapp needs to know the address where the MetaCoin contract has been deployed. You can set it manually in the code, but the easy way is to run
+To work properly, the Dapp needs to know the address where the MetaCoin contract has been deployed. You can set it manually in the code, but the easy way is to run:
 
 ```
 npm run migrate
 ```
 It will execute the migration, retrieve the contract address and save it in the file `src/js/metacoin-config.js`
 
+
 ### Run the Dapp
 ```
 npm run dev
 ```
 It automatically will open the Dapp in the default browser.
+
+
+### Using a private network docker container
+
+`tronbox migrate` by default will use the `development` network. If you like to use your private network, first you need to run the Trondev container:
+```
+docker run -d -p 8091:8091 -p 8092:8092 -p 8090:8090 --rm --name tron trontools/quickstart
+```
+verify that it is running, and nodes and event server are listening:
+```
+wget -qO- http://127.0.0.1:8090/wallet/getnowblock
+wget -qO- http://127.0.0.1:8091/walletsolidity/getnowblock
+wget -qO- http://127.0.0.1:8092
+```
+If the three requests above are successful, you can migrate to the private network with:
+```
+tronbox migrate --reset --network tronQuickstart
+```
+or testing with
+```
+tronbox test --network tronQuickstart
+```
 
 ### Enjoy your working Tron Dapp!
 
