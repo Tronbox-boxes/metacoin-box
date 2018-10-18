@@ -91,7 +91,7 @@ App = {
           "type": "address"
         }
       ],
-      "name": "getBalanceInEth",
+      "name": "getBalanceInTrx",
       "outputs": [
         {
           "name": "",
