@@ -1,6 +1,7 @@
 var MetaCoin = artifacts.require("./MetaCoin.sol");
 
-// this tests require TronBox >= 2.1.0
+// The following tests require TronBox >= 2.1.x
+// and Tron Quickstart (https://github.com/tronprotocol/docker-tron-quickstart)
 
 contract('MetaCoin', function (accounts) {
 
@@ -38,7 +39,8 @@ contract('MetaCoin', function (accounts) {
     const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
     const account_three_starting_balance = (await meta.getBalance.call(accounts[2])).toNumber();
     await meta.sendCoin(accounts[2], 5, {
-      from: accounts[1]
+      from: accounts[1],
+      shouldPollResponse: true
     });
     assert.equal(await meta.getBalance.call(accounts[1]), account_two_starting_balance - 5, "Amount wasn't correctly sent to the receiver");
     assert.equal(await meta.getBalance.call(accounts[2]), account_three_starting_balance + 5, "Amount wasn't correctly sent to the receiver");
