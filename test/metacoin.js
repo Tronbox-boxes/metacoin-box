@@ -1,4 +1,4 @@
-var sleep = require('sleep')
+var wait = require('./helpers/wait')
 var MetaCoin = artifacts.require("./MetaCoin.sol");
 
 // The following tests require TronBox >= 2.1.x
@@ -20,18 +20,18 @@ contract('MetaCoin', function (accounts) {
   it("should call a function that depends on a linked library", async function () {
     this.timeout(10000);
     const meta = await MetaCoin.deployed();
+    wait(1);
     const metaCoinBalance = (await meta.getBalance.call(accounts[0])).toNumber();
     const metaCoinEthBalance = (await meta.getBalanceInEth.call(accounts[0])).toNumber();
-    sleep.sleep(1);
     assert.equal(metaCoinEthBalance, 2 * metaCoinBalance, "Library function returned unexpected function, linkage may be broken");
   });
 
   it("should send coins from account 0 to 1", async function () {
     this.timeout(10000)
     const meta = await MetaCoin.deployed();
+    wait(3);
     const account_one_starting_balance = (await meta.getBalance.call(accounts[0])).toNumber();
     const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
-    sleep.sleep(1);
     await meta.sendCoin(accounts[1], 10, {
       from: accounts[0]
     });
@@ -42,6 +42,7 @@ contract('MetaCoin', function (accounts) {
   it("should send coins from account 1 to 2", async function () {
     this.timeout(20000)
     const meta = await MetaCoin.deployed();
+    wait(3);
     const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
     const account_three_starting_balance = (await meta.getBalance.call(accounts[2])).toNumber();
     await meta.sendCoin(accounts[2], 5, {
