@@ -1,12 +1,12 @@
 {
   "name": "metacoin-box",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "dev": "lite-server",
+    "dev": "lite-server -c ./bs-config.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "bash scripts/migrate.sh"
   },
@@ -20,7 +20,8 @@
   "license": "MIT",
   "devDependencies": {
     "chalk": "^2.4.1",
-    "lite-server": "^2.3.0",
-    "sleep": "^5.2.3"
+    "lite-server": "^2.4.0",
+    "sleep": "^5.2.3",
+    "tronweb": "^2.1.10"
   }
 }
