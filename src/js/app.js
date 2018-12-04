@@ -1,8 +1,6 @@
-const HttpProvider = TronWeb.providers.HttpProvider;
-
-const fullNode = new HttpProvider('http://localhost:8090');
-const solidityNode = new HttpProvider('http://localhost:8091');
-const eventServer = 'http://localhost:8092/';
+const fullNode = 'http://127.0.0.1:8090';
+const solidityNode = 'http://127.0.0.1:8091';
+const eventServer = 'http://127.0.0.1:8092';
 const privateKey = 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0';
 
 var tronWeb = new TronWeb(
@@ -17,23 +15,26 @@ let contractAddress
 try {
   contractAddress = metacoinConfig.address
 } catch (err) {
+  alert('The app looks not configured. Please run `npm run migrate`')
 }
 
 
 App = {
   tronWebProvider: null,
   contracts: {},
-  accounts: [
-    "TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY",
-    "TBp39yWZhFEG5NdAoFFxepaj2dxCQjNmB9"
-  ],
+  accounts: [],
   contractAddress: contractAddress,
   privateKey: "da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0",
-  fee_limit: 100000000,
-  call_value: 0,
+  feeLimit: 100000000,
+  callValue: 0,
   abi: [
     {
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "initialBalance",
+          "type": "uint256"
+        }
+      ],
       "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -58,6 +59,18 @@ App = {
         }
       ],
       "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "s",
+          "type": "string"
+        }
+      ],
+      "name": "Log",
       "type": "event"
     },
     {
@@ -91,7 +104,7 @@ App = {
           "type": "address"
         }
       ],
-      "name": "getBalanceInTrx",
+      "name": "getBalanceInEth",
       "outputs": [
         {
           "name": "",
@@ -120,9 +133,31 @@ App = {
       "payable": false,
       "stateMutability": "view",
       "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     }
   ],
-  init: function () {
+  init: function (accounts) {
+
+    for (let i = 0; i < 2; i++) {
+      this.accounts.push(
+          tronWeb.address.fromPrivateKey(
+              accounts.privateKeys[i]
+          ))
+    }
+
     this.initData();
     this.bindEvents();
   },
@@ -179,8 +214,8 @@ App = {
     })
 
     myContract[methodName](...args)[callSend]({
-      fee_limit: that.fee_limit,
-      call_value: that.call_value || 0,
+      feeLimit: that.feeLimit,
+      callValue: that.callValue || 0,
     }).then(function (res) {
       if (res) {
         callback && callback(res);
@@ -232,7 +267,10 @@ App = {
 $(function () {
   $(window).load(function () {
     if (contractAddress) {
-      App.init();
+      $.getJSON(fullNode + '/admin/accounts-json', function (data) {
+        console.log(data)
+        App.init(data);
+      })
     } else {
       alert("Please, run \n\n    npm run migrate\n\nto execute the migration to trongrid, and automatically configure this example.\nWhen done, reload this page.")
     }

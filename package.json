@@ -1,6 +1,6 @@
 {
   "name": "metacoin-box",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "",
   "directories": {
     "test": "test"
@@ -11,17 +11,14 @@
     "migrate": "bash scripts/migrate.sh"
   },
   "originalAuthors": "truffle-box",
-  "authors": [
-    {
-      "name": "Francesco Sullo",
-      "email": "francesco@sullo.co"
-    }
-  ],
+  "author": {
+    "name": "Francesco Sullo",
+    "email": "francesco@sullo.co"
+  },
   "license": "MIT",
   "devDependencies": {
     "chalk": "^2.4.1",
     "lite-server": "^2.4.0",
-    "sleep": "^5.2.3",
-    "tronweb": "^2.1.10"
+    "sleep": "^5.2.3"
   }
 }

@@ -1,13 +1,12 @@
 var fs = require('fs')
 var path = require('path')
 
-var output = process.argv[2]
-output.split('\n').forEach(function(val) {
+const address = process.argv[2]
+    .split('MetaCoin:')[1]
+    .split('(hex) ')[1]
+    .split('\n')[0]
 
-  if (/MetaCoin\: /.test(val)) {
-    var config = {
-      address: val.split(': ')[1]
-    }
-    fs.writeFileSync(path.resolve(__dirname, '../src/js/metacoin-config.js'),'var metacoinConfig = ' + JSON.stringify(config))
-  }
-})
+console.log('The app has been configured.')
+console.log('Run "npm run dev" to start it.')
+
+fs.writeFileSync(path.resolve(__dirname, '../src/js/metacoin-config.js'),`var metacoinConfig = {"address":"${address}"}`)

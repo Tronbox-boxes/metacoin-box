@@ -1,10 +1,25 @@
 var wait = require('./helpers/wait')
+var chalk = require('chalk')
 var MetaCoin = artifacts.require("./MetaCoin.sol");
 
 // The following tests require TronBox >= 2.1.x
 // and Tron Quickstart (https://github.com/tronprotocol/docker-tron-quickstart)
 
 contract('MetaCoin', function (accounts) {
+
+  before(function() {
+    if(accounts.length < 3) {
+      // Set your own accounts if you are not using Tron Quickstart
+
+    }
+  })
+
+  it("should verify that there are at least three available accounts", async function () {
+    if (accounts.length < 3) {
+      console.log(chalk.blue('\nYOUR ATTENTION, PLEASE.]\nTo test MetaCoin you should use Tron Quickstart (https://github.com/tronprotocol/docker-tron-quickstart) as your private network.\nAlternatively, you must set your own accounts in the "before" statement in "test/metacoin.js".\n'))
+    }
+    assert.isTrue(accounts.length >= 3)
+  })
 
   it("should verify that the contract has been deployed by accounts[0]", async function () {
     const instance = await MetaCoin.deployed();
@@ -27,6 +42,8 @@ contract('MetaCoin', function (accounts) {
   });
 
   it("should send coins from account 0 to 1", async function () {
+    assert.isTrue(accounts[1] ? true : false, 'accounts[1] does not exist. Use Tron Quickstart!')
+
     this.timeout(10000)
     const meta = await MetaCoin.deployed();
     wait(3);
@@ -40,7 +57,9 @@ contract('MetaCoin', function (accounts) {
   });
 
   it("should send coins from account 1 to 2", async function () {
-    this.timeout(20000)
+    assert.isTrue(accounts[1] && accounts[2] ? true : false, 'accounts[1] and/or accounts[2] do not exist. Use Tron Quickstart!')
+
+    this.timeout(30000)
     const meta = await MetaCoin.deployed();
     wait(3);
     const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
