@@ -5,11 +5,11 @@
   ],
   "commands": {
     "Compile": "tronbox compile",
-    "Migrate": "tronbox migrate",
+    "Migrate": "npm run migrate",
     "Test contracts": "tronbox test",
     "Run dev server": "npm run dev"
   },
   "hooks": {
-    "post-unpack": "npm install"
+    "post-unpack": "bash scripts/post-install.sh && npm install"
   }
 }
