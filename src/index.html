@@ -27,11 +27,17 @@
       </div>
 
       <div class="row">
-        <div>account A has <span id="dev_old_a">0</span>  MetaCoin</div>
-        <div>account B has <span id="dev_old_b">0</span>  MetaCoin</div>
+        <div>The  MetaCoin contract has been deployed at:</div>
+        <div><b id="contractAddress"></b></div>
       </div>
+      <p></p>
       <div class="row">
-        <div> transfer MetaCoins count <input id="dev_count" value="100"/> </div> 
+        <div>Account A (<b id="accountA"></b>) has <span id="dev_old_a">0</span>  MetaCoin</div>
+        <div>Account B (<b id="accountB"></b>) has <span id="dev_old_b">0</span>  MetaCoin</div>
+      </div>
+      <p></p>
+      <div class="row">
+        <div>Transfer MetaCoins from A to B. Amount: <input id="dev_count" value="100"/> </div>
         <button id="commit">transfer</button>
         <p id="loading" style="display:none;padding-top:10px">Waiting to complete the transaction <img src="img/spinner.svg" style="width:20px"/></p>
       </div>

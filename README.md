@@ -1,117 +1,92 @@
-# MetaCoin TronBox
+# MetaCoin TronBox Example
+Originally forked from [truffle-box/metacoin](https://github.com/truffle-box/metacoin-box).
 
-MetaCoin example TronBox project. Originally forked from [truffle-box/metacoin](https://github.com/truffle-box/metacoin-box).
+### Configure Network Information for TronBox
 
-
-
-### Configure Network Information
-
-Network configuration is generally divided into development environment (development) and online formal production (production), but other test network environments can be added.
-In this example we use TronGrid, a test server which is reset daily, as the development environent, and the Trondev docker container, for a private network:
+Network configuration is required by TronBox.
+In our case we use Tron Quickstart for local testing, and TroGrid for as testnet.
 
 ```
 module.exports = {
   networks: {
-    testnet: {
-      from: 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
-      privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
-      consume_user_resource_percent: 30,
-      fee_limit: 100000000,
-      fullNode: "https://api.shasta.trongrid.io",
-      solidityNode: "https://api.shasta.trongrid.io",
-      eventServer: "https://api.shasta.trongrid.io",
-      network_id: "*" // Match any network id
-    },
+
+// trontools/quickstart docker image
     development: {
-      from: 'TPL66VK2gCXNCD7EJg9pgJRfqcRazjhUZY',
-      privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
+      privateKey: // don't change this private key
+      'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
+      fullHost: "http://127.0.0.1:9090",
+      feeLimit: 1e8,
+      userFeePercentage: 30,
+      originEnergyLimit: 1e5,
+      network_id: "*"
+    },
+
+// TronGrid Shasta testnet
+    shasta: {
+
+      // Put your shasta account's private key here:
+      privateKey: '',
+
+      // To receive trx for your shasta account go to
+      // https://www.trongrid.io/shasta
+      // and paste your address in the field at the bottom of the page
+
       consume_user_resource_percent: 30,
-      fee_limit: 100000000,
-      fullNode: "http://127.0.0.1:8090",
-      solidityNode: "http://127.0.0.1:8091",
-      eventServer: "http://127.0.0.1:8092",
+      fullHost: "https://api.shasta.trongrid.io",
+      feeLimit: 1e8,
+      userFeePercentage: 30,
+      originEnergyLimit: 1e5,
       network_id: "*"
     }
   }
-};
+}
 ```
 
-Below describes the meaning of each parameter in the network configuration:<br>
+### Use your own private network
 
-**from**: Primary account address for contract deployment (base58)<br>
-**privateKey**: Private key corresponding to the contract deployment master account<br>
-**consume_user_resource_percent**: Parameters for deployment; can use default settings<br>
-**fee_limit**: Parameters for deployment; can use default settings<br>
-**fullNode**: The URL of a Tron full node. In the example, the url refers to a test environment which is reset daily.<br>
-**solidityNode**: The URL of solidity node synced with the full node above.<br>
-**eventServer**: The URL of the contract deployment destination event monitoring service (Need to be on same IP as the API server, otherwise the event callback cannot be monitored. For example, the API service address is http://127.0.0.1:8090, then the event listener service address is http://127.0.0.1:****)<br>
-**network_id**: Can use default settings<br>
+`tronbox migrate` by default will use the `development` network that is set to use Tron Quickstart. In order to test the smart contracts and deploy them you must install Tron Quickstart.
 
-If you use TronBox >= 2.1.9, you can set `fullHost` instead of fullNode, solidityNode and eventServer, if they point to the same server.
+1. [Install Docker](https://docs.docker.com/install/).
+
+2. Run Tron Quickstart:
+```
+docker run -it --rm -p 9090:9090 --name tron trontools/quickstart
+```
 
 ### TronBox commands
 ```
 tronbox compile
-tronbox migrate
+tronbox migrate --reset
 tronbox test
 ```
 
-### Run the example Dapp
-First off, install the dependencies
+The first time you execute a migration, the process can stuck. It is a know bug that we are trying to fix. Just Ctrl-c to stop the process. As you can verify, the contracts have been correctly deployed.
+
+### Run the example dApp on Shasta
+
+1. You need an account with some Shasta TRX. If you don't have any, open https://www.trongrid.io/shasta/ and require some Shasta TRX at the bottom of the page.
+
+2. Edit your `tronbox.js` and in the section `shasta`, set the privateKey of the account for which you requested Shasta TRX.
+
+3. Verify that your account is not empty opening a page like https://api.shasta.trongrid.io/wallet/getaccount?address=41559f48a697a006cfc35009cb059a400fc526b31f  using, of course, your account address.
+
+4. Set the dApp. The dApp needs to know the address where the MetaCoin contract has been deployed. We have put in the box a special script:
+
 ```
-npm install
+npm run setup-dapp
 ```
 
-To work properly, the Dapp needs to know the address where the MetaCoin contract has been deployed. You can set it manually in the code, but the easy way is to run:
+It will execute the migration, retrieve the contract address and save it in the file `src/js/metacoin-config.js`.
 
-```
-npm run migrate
-```
-It will execute the migration, retrieve the contract address and save it in the file `src/js/metacoin-config.js`
+5. Run the dApp:
 
-
-### Run the Dapp
 ```
 npm run dev
 ```
-It automatically will open the Dapp in the default browser.
+It automatically will open the dApp in the default browser.
 
 
-### Using a private network docker container
-
-`tronbox migrate` by default will use the `development` network. If you like to use your private network, first you need to run the Trondev container:
-```
-docker run -d -p 8091:8091 -p 8092:8092 -p 8090:8090 --rm --name tron trontools/quickstart
-```
-verify that it is running, and nodes and event server are listening:
-```
-wget -qO- http://127.0.0.1:8090/wallet/getnowblock
-wget -qO- http://127.0.0.1:8091/walletsolidity/getnowblock
-wget -qO- http://127.0.0.1:8092/healthcheck
-```
-
-If you are using TronBox >= 2.1.9 and trontools/quickstart >= 1.1.16, you can set a `fullHost` in tronbox.js and run quickstart as
-```
-docker run -d -p 9090:9090 --rm --name tron trontools/quickstart
-```
-verify that it is running, and nodes and event server are listening:
-```
-wget -qO- http://127.0.0.1:9090/wallet/getnowblock
-wget -qO- http://127.0.0.1:9090/walletsolidity/getnowblock
-wget -qO- http://127.0.0.1:9090/healthcheck
-```
-
-
-If the three requests above are successful, you can migrate to the private network with:
-```
-tronbox migrate --reset --network tronQuickstart
-```
-or testing with
-```
-tronbox test --network tronQuickstart
-```
-
-### Enjoy your working Tron Dapp!
+6. Enjoy your working Tron dApp!
 
 
 

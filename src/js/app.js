@@ -1,19 +1,14 @@
-const fullNode = 'http://127.0.0.1:8090';
-const solidityNode = 'http://127.0.0.1:8091';
-const eventServer = 'http://127.0.0.1:8092';
-const privateKey = 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0';
-
-var tronWeb = new TronWeb(
-    fullNode,
-    solidityNode,
-    eventServer,
-    privateKey
-)
-
-let contractAddress
+var contractAddress
+var tronWeb
 
 try {
-  contractAddress = metacoinConfig.address
+  contractAddress = metacoinConfig.contractAddress
+  tronWeb = new TronWeb(
+      metacoinConfig.fullHost,
+      metacoinConfig.fullHost,
+      metacoinConfig.fullHost,
+      metacoinConfig.privateKey
+  )
 } catch (err) {
   alert('The app looks not configured. Please run `npm run migrate`')
 }
@@ -149,15 +144,18 @@ App = {
       "type": "function"
     }
   ],
-  init: function (accounts) {
+  init: async function () {
 
-    for (let i = 0; i < 2; i++) {
-      this.accounts.push(
-          tronWeb.address.fromPrivateKey(
-              accounts.privateKeys[i]
-          ))
-    }
+    this.accounts = [
+      tronWeb.address.fromPrivateKey(metacoinConfig.privateKey)
+    ]
 
+
+    const account = await tronWeb.createAccount()
+    this.accounts.push(account.address.base58);
+    $("#contractAddress").text(this.contractAddress)
+    $("#accountA").text(this.accounts[0])
+    $("#accountB").text(this.accounts[1])
     this.initData();
     this.bindEvents();
   },
@@ -202,9 +200,8 @@ App = {
       callback && callback(res);
     });
   },
-  triggerContract: function (methodName, args, callback) {
-    var that = this;
-    let myContract = tronWeb.contract(this.abi, that.contractAddress);
+  triggerContract: async function (methodName, args, callback) {
+    let myContract = await tronWeb.contract().at(this.contractAddress)
 
     var callSend = 'send'
     this.abi.forEach(function (val) {
@@ -214,8 +211,8 @@ App = {
     })
 
     myContract[methodName](...args)[callSend]({
-      feeLimit: that.feeLimit,
-      callValue: that.callValue || 0,
+      feeLimit: this.feeLimit,
+      callValue: this.callValue || 0,
     }).then(function (res) {
       if (res) {
         callback && callback(res);
@@ -261,18 +258,10 @@ App = {
      * Replace me...
      */
   }
-
 };
 
 $(function () {
   $(window).load(function () {
-    if (contractAddress) {
-      $.getJSON(fullNode + '/admin/accounts-json', function (data) {
-        console.log(data)
-        App.init(data);
-      })
-    } else {
-      alert("Please, run \n\n    npm run migrate\n\nto execute the migration to trongrid, and automatically configure this example.\nWhen done, reload this page.")
-    }
+    App.init();
   });
 });

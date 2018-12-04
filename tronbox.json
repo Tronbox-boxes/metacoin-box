@@ -10,6 +10,6 @@
     "Run dev server": "npm run dev"
   },
   "hooks": {
-    "post-unpack": "bash scripts/post-install.sh && npm install"
+    "post-unpack": "bash post-unpack.sh && rm post-unpack.sh && npm install"
   }
 }

@@ -1,7 +1,7 @@
 module.exports = {
   networks: {
     development: {
-// For trontools/quickstart docker image
+      // For trontools/quickstart docker image
       privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
       consume_user_resource_percent: 30,
       fee_limit: 100000000,
@@ -17,9 +17,9 @@ module.exports = {
       network_id: "*"
     },
     mainnet: {
-// Don't put your private key here:
+      // Don't put your private key here:
       privateKey: process.env.PK,
-/*
+      /*
 Create a .env file (it must be gitignored) containing something like
 
   export PK=4E7FECCB71207B867C495B51A9758B104B1D4422088A87F4978BE64636656243
