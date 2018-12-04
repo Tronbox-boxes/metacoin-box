@@ -38917,15 +38917,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var lib_providers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lib/providers */ "./src/lib/providers/index.js");
 /* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! utils */ "./src/utils/index.js");
-/* harmony import */ var bignumber_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! bignumber.js */ "./node_modules/bignumber.js/bignumber.js");
-/* harmony import */ var bignumber_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(bignumber_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! eventemitter3 */ "./node_modules/eventemitter3/index.js");
-/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(eventemitter3__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var lib_transactionBuilder__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lib/transactionBuilder */ "./src/lib/transactionBuilder.js");
-/* harmony import */ var lib_trx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lib/trx */ "./src/lib/trx.js");
-/* harmony import */ var lib_contract__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lib/contract */ "./src/lib/contract/index.js");
-/* harmony import */ var js_sha3__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! js-sha3 */ "./node_modules/js-sha3/src/sha3.js");
-/* harmony import */ var js_sha3__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(js_sha3__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var bignumber_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! bignumber.js */ "./node_modules/bignumber.js/bignumber.js");
+/* harmony import */ var bignumber_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(bignumber_js__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! eventemitter3 */ "./node_modules/eventemitter3/index.js");
+/* harmony import */ var eventemitter3__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(eventemitter3__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var lib_transactionBuilder__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lib/transactionBuilder */ "./src/lib/transactionBuilder.js");
+/* harmony import */ var lib_trx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! lib/trx */ "./src/lib/trx.js");
+/* harmony import */ var lib_contract__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! lib/contract */ "./src/lib/contract/index.js");
+/* harmony import */ var js_sha3__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! js-sha3 */ "./node_modules/js-sha3/src/sha3.js");
+/* harmony import */ var js_sha3__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(js_sha3__WEBPACK_IMPORTED_MODULE_18__);
+
 
 
 
@@ -38970,7 +38973,7 @@ function (_EventEmitter) {
     _this.setEventServer(eventServer);
 
     _this.providers = lib_providers__WEBPACK_IMPORTED_MODULE_10__["default"];
-    _this.BigNumber = bignumber_js__WEBPACK_IMPORTED_MODULE_12___default.a;
+    _this.BigNumber = bignumber_js__WEBPACK_IMPORTED_MODULE_13___default.a;
     _this.defaultBlock = false;
     _this.defaultPrivateKey = false;
     _this.defaultAddress = {
@@ -38981,8 +38984,8 @@ function (_EventEmitter) {
       _this[key] = TronWeb[key];
     });
     if (privateKey) _this.setPrivateKey(privateKey);
-    _this.transactionBuilder = new lib_transactionBuilder__WEBPACK_IMPORTED_MODULE_14__["default"](_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_this)));
-    _this.trx = new lib_trx__WEBPACK_IMPORTED_MODULE_15__["default"](_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_this)));
+    _this.transactionBuilder = new lib_transactionBuilder__WEBPACK_IMPORTED_MODULE_15__["default"](_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_this)));
+    _this.trx = new lib_trx__WEBPACK_IMPORTED_MODULE_16__["default"](_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_this)));
     _this.utils = utils__WEBPACK_IMPORTED_MODULE_11__["default"];
     _this.injectPromise = utils__WEBPACK_IMPORTED_MODULE_11__["default"].promiseInjector(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_8___default()(_this)));
     return _this;
@@ -39095,9 +39098,28 @@ function (_EventEmitter) {
       var sinceTimestamp = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       var eventName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var blockNumber = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-      var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-      if (!callback) return this.injectPromise(this.getEventResult, contractAddress, sinceTimestamp, eventName, blockNumber);
+      var size = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 20;
+      var page = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1;
+      var callback = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isFunction(page)) {
+        callback = page;
+        page = 1;
+      }
+
+      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isFunction(size)) {
+        callback = size;
+        size = 20;
+      }
+
+      if (!callback) return this.injectPromise(this.getEventResult, contractAddress, sinceTimestamp, eventName, blockNumber, size, page);
       if (!this.eventServer) callback('No event server configured');
+
+      if (size > 200) {
+        console.info('Defaulting to maximum accepted size: 200');
+        size = 200;
+      }
+
       var routeParams = [];
       if (!this.isAddress(contractAddress)) return callback('Invalid contract address provided');
       if (eventName && !contractAddress) return callback('Usage of event name filtering requires a contract address');
@@ -39105,7 +39127,7 @@ function (_EventEmitter) {
       if (contractAddress) routeParams.push(this.address.fromHex(contractAddress));
       if (eventName) routeParams.push(eventName);
       if (blockNumber) routeParams.push(blockNumber);
-      return this.eventServer.request("event/contract/".concat(routeParams.join('/'), "?since=").concat(sinceTimestamp)).then(function () {
+      return this.eventServer.request("event/contract/".concat(routeParams.join('/'), "?since=").concat(sinceTimestamp, "&size=").concat(size, "&page=").concat(page)).then(function () {
         var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
         if (!data) return callback('Unknown error occurred');
         if (!utils__WEBPACK_IMPORTED_MODULE_11__["default"].isArray(data)) return callback(data);
@@ -39139,7 +39161,7 @@ function (_EventEmitter) {
     value: function contract() {
       var abi = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var address = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      return new lib_contract__WEBPACK_IMPORTED_MODULE_16__["default"](this, abi, address);
+      return new lib_contract__WEBPACK_IMPORTED_MODULE_17__["default"](this, abi, address);
     }
   }, {
     key: "isConnected",
@@ -39212,7 +39234,7 @@ function (_EventEmitter) {
     key: "sha3",
     value: function sha3(string) {
       var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      return (prefix ? '0x' : '') + Object(js_sha3__WEBPACK_IMPORTED_MODULE_17__["keccak256"])(string);
+      return (prefix ? '0x' : '') + Object(js_sha3__WEBPACK_IMPORTED_MODULE_18__["keccak256"])(string);
     }
   }, {
     key: "toHex",
@@ -39226,62 +39248,28 @@ function (_EventEmitter) {
         if (!isFinite(val)) return TronWeb.fromUtf8(val);
       }
 
-      var result = TronWeb.fromDecimal(val);
-
-      if (result === '0xNaN') {
-        throw new Error('The passed value is not convertible to a hex string');
-      } else {
-        return result;
-      }
+      return TronWeb.fromDecimal(val);
     }
   }, {
     key: "toUtf8",
     value: function toUtf8(hex) {
-      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isHex(hex)) {
-        hex = hex.replace(/^0x/, '');
-        return Buffer.from(hex, 'hex').toString('utf8');
-      } else {
-        throw new Error('The passed value is not a valid hex string');
-      }
+      hex = hex.replace(/^0x/, '');
+      return Buffer.from(hex, 'hex').toString('utf8');
     }
   }, {
     key: "fromUtf8",
     value: function fromUtf8(string) {
-      if (!utils__WEBPACK_IMPORTED_MODULE_11__["default"].isString(string)) {
-        throw new Error('The passed value is not a valid utf-8 string');
-      }
-
       return '0x' + Buffer.from(string, 'utf8').toString('hex');
     }
   }, {
     key: "toAscii",
     value: function toAscii(hex) {
-      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isHex(hex)) {
-        var str = "";
-        var i = 0,
-            l = hex.length;
-
-        if (hex.substring(0, 2) === '0x') {
-          i = 2;
-        }
-
-        for (; i < l; i += 2) {
-          var code = parseInt(hex.substr(i, 2), 16);
-          str += String.fromCharCode(code);
-        }
-
-        return str;
-      } else {
-        throw new Error('The passed value is not a valid hex string');
-      }
+      hex = hex.replace(/^0x/, '');
+      return Buffer.from(hex, 'hex').toString('ascii');
     }
   }, {
     key: "fromAscii",
     value: function fromAscii(string, padding) {
-      if (!utils__WEBPACK_IMPORTED_MODULE_11__["default"].isString(string)) {
-        throw new Error('The passed value is not a valid utf-8 string');
-      }
-
       return '0x' + Buffer.from(string, 'ascii').toString('hex').padEnd(padding, '0');
     }
   }, {
@@ -39313,8 +39301,8 @@ function (_EventEmitter) {
     value: function toBigNumber() {
       var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
       if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isBigNumber(amount)) return amount;
-      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isString(amount) && /^(-|)0x/.test(amount)) return new bignumber_js__WEBPACK_IMPORTED_MODULE_12___default.a(amount.replace('0x', ''), 16);
-      return new bignumber_js__WEBPACK_IMPORTED_MODULE_12___default.a(amount.toString(10), 10);
+      if (utils__WEBPACK_IMPORTED_MODULE_11__["default"].isString(amount) && (amount.indexOf('0x') === 0 || amount.indexOf('-0x') === 0)) return new bignumber_js__WEBPACK_IMPORTED_MODULE_13___default.a(amount.replace('0x', ''), 16);
+      return new bignumber_js__WEBPACK_IMPORTED_MODULE_13___default.a(amount.toString(10), 10);
     }
   }, {
     key: "isAddress",
@@ -39323,12 +39311,7 @@ function (_EventEmitter) {
       if (!utils__WEBPACK_IMPORTED_MODULE_11__["default"].isString(address)) return false; // Convert HEX to Base58
 
       if (address.length === 42) {
-        try {
-          return TronWeb.isAddress(utils__WEBPACK_IMPORTED_MODULE_11__["default"].crypto.getBase58CheckAddress(utils__WEBPACK_IMPORTED_MODULE_11__["default"].code.hexStr2byteArray(address) // it throws an error if the address starts with 0x
-          ));
-        } catch (err) {
-          return false;
-        }
+        return TronWeb.isAddress(utils__WEBPACK_IMPORTED_MODULE_11__["default"].crypto.getBase58CheckAddress(utils__WEBPACK_IMPORTED_MODULE_11__["default"].code.hexStr2byteArray(address)));
       }
 
       return utils__WEBPACK_IMPORTED_MODULE_11__["default"].crypto.isAddressValid(address);
@@ -39387,17 +39370,11 @@ function (_EventEmitter) {
   }]);
 
   return TronWeb;
-}(eventemitter3__WEBPACK_IMPORTED_MODULE_13___default.a);
+}(eventemitter3__WEBPACK_IMPORTED_MODULE_14___default.a);
 
 _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "providers", lib_providers__WEBPACK_IMPORTED_MODULE_10__["default"]);
 
-_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "BigNumber", bignumber_js__WEBPACK_IMPORTED_MODULE_12___default.a);
-
-_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "TransactionBuilder", lib_transactionBuilder__WEBPACK_IMPORTED_MODULE_14__["default"]);
-
-_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "Trx", lib_trx__WEBPACK_IMPORTED_MODULE_15__["default"]);
-
-_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "Contract", lib_contract__WEBPACK_IMPORTED_MODULE_16__["default"]);
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(TronWeb, "BigNumber", bignumber_js__WEBPACK_IMPORTED_MODULE_13___default.a);
 
 
 ;
@@ -40951,6 +40928,8 @@ function () {
           callValue = _options$callValue === void 0 ? 0 : _options$callValue,
           _options$userFeePerce = options.userFeePercentage,
           userFeePercentage = _options$userFeePerce === void 0 ? 0 : _options$userFeePerce,
+          _options$originEnergy = options.originEnergyLimit,
+          originEnergyLimit = _options$originEnergy === void 0 ? 100000 : _options$originEnergy,
           _options$parameters = options.parameters,
           parameters = _options$parameters === void 0 ? [] : _options$parameters,
           _options$name = options.name,
@@ -40974,6 +40953,7 @@ function () {
       if (payable && callValue == 0) return callback('When contract is payable, options.callValue must be a positive integer');
       if (!payable && callValue > 0) return callback('When contract is not payable, options.callValue must be 0');
       if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isInteger(userFeePercentage) || userFeePercentage < 0 || userFeePercentage > 100) return callback('Invalid options.userFeePercentage provided');
+      if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isInteger(originEnergyLimit) || originEnergyLimit < 0) return callback('Invalid options.originEnergyLimit provided');
       if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isArray(parameters)) return callback('Invalid parameters provided');
       if (!this.tronWeb.isAddress(issuerAddress)) return callback('Invalid issuer address provided');
       var constructorParams = abi.find(function (it) {
@@ -41008,6 +40988,7 @@ function () {
         fee_limit: parseInt(feeLimit),
         call_value: parseInt(callValue),
         consume_user_resource_percent: userFeePercentage,
+        origin_energy_limit: originEnergyLimit,
         abi: JSON.stringify(abi),
         bytecode: bytecode,
         parameter: parameters,
@@ -41245,8 +41226,6 @@ function () {
           freeBandwidth = _options$freeBandwidt3 === void 0 ? 0 : _options$freeBandwidt3,
           _options$freeBandwidt4 = options.freeBandwidthLimit,
           freeBandwidthLimit = _options$freeBandwidt4 === void 0 ? 0 : _options$freeBandwidt4;
-      if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isString(description) || !description.length) return callback('Invalid token description provided');
-      if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isString(url) || !url.length || !utils__WEBPACK_IMPORTED_MODULE_4__["default"].isValidURL(url)) return callback('Invalid token url provided');
       if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isInteger(freeBandwidth) || freeBandwidth < 0) return callback('Invalid free bandwidth amount provided');
       if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isInteger(freeBandwidthLimit) || freeBandwidthLimit < 0 || freeBandwidth && !freeBandwidthLimit) return callback('Invalid free bandwidth limit provided');
       if (!this.tronWeb.isAddress(issuerAddress)) return callback('Invalid issuer address provided');
@@ -41307,11 +41286,14 @@ function () {
         issuerAddress = this.tronWeb.defaultAddress.hex;
       }
 
+      if (!parameters) return callback('Invalid proposal parameters provided');
       if (!callback) return this.injectPromise(this.createProposal, parameters, issuerAddress);
       if (!this.tronWeb.isAddress(issuerAddress)) return callback('Invalid issuerAddress provided');
-      var invalid = 'Invalid proposal parameters provided';
-      if (!parameters) return callback(invalid);
-      if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isArray(parameters)) parameters = [parameters];
+
+      if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isArray(parameters)) {
+        parameters = [parameters];
+      }
+
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
@@ -41319,7 +41301,7 @@ function () {
       try {
         for (var _iterator = parameters[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var parameter = _step.value;
-          if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isObject(parameter)) return callback(invalid);
+          if (!utils__WEBPACK_IMPORTED_MODULE_4__["default"].isObject(parameter)) return callback('Invalid parameters provided');
         }
       } catch (err) {
         _didIteratorError = true;
@@ -43217,24 +43199,6 @@ function () {
         return callback(err);
       });
     }
-    /*
-        this.tronWeb.fullNode.request('wallet/proposalcreate', {
-        owner_address: this.tronWeb.address.toHex(issuerAddress),
-        parameters: parameters
-    }, 'post').then(transaction => {
-        if(transaction.Error)
-            return callback(transaction.Error);
-    
-        if(transaction.result && transaction.result.message) {
-            return callback(
-                this.tronWeb.toUtf8(transaction.result.message)
-            );
-        }
-    
-        callback(null, transaction);
-    }).catch(err => callback(err));
-        */
-
     /**
      * Lists all parameters available for network modification proposals.
      */
@@ -43730,7 +43694,7 @@ function Base64() {
 /*!****************************!*\
   !*** ./src/utils/bytes.js ***!
   \****************************/
-/*! exports provided: byte2hexStr, bytesToString, hextoString, byteArray2hexStr, base64DecodeFromString, base64EncodeToString */
+/*! exports provided: byte2hexStr, bytesToString, hextoString, base64DecodeFromString, byteArray2hexStr */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43738,14 +43702,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "byte2hexStr", function() { return byte2hexStr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bytesToString", function() { return bytesToString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hextoString", function() { return hextoString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "byteArray2hexStr", function() { return byteArray2hexStr; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64DecodeFromString", function() { return base64DecodeFromString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64EncodeToString", function() { return base64EncodeToString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "byteArray2hexStr", function() { return byteArray2hexStr; });
 /* harmony import */ var _base64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base64 */ "./src/utils/base64.js");
 
 function byte2hexStr(byte) {
-  if (typeof byte !== 'number') throw new Error('Input must be a number');
-  if (byte < 0 || byte > 255) throw new Error('Input must be a byte');
   var hexByteMap = '0123456789ABCDEF';
   var str = '';
   str += hexByteMap.charAt(byte >> 4);
@@ -43778,7 +43739,7 @@ function bytesToString(arr) {
   return str;
 }
 function hextoString(hex) {
-  var arr = hex.replace(/^0x/, '').split('');
+  var arr = hex.split('');
   var out = '';
 
   for (var i = 0; i < arr.length / 2; i++) {
@@ -43787,6 +43748,9 @@ function hextoString(hex) {
   }
 
   return out;
+}
+function base64DecodeFromString(string64) {
+  return new _base64__WEBPACK_IMPORTED_MODULE_0__["Base64"]().decodeToByteArray(string64);
 }
 function byteArray2hexStr(byteArray) {
   var str = '';
@@ -43797,14 +43761,6 @@ function byteArray2hexStr(byteArray) {
 
   return str;
 }
-function base64DecodeFromString(string64) {
-  return new _base64__WEBPACK_IMPORTED_MODULE_0__["Base64"]().decodeToByteArray(string64);
-}
-function base64EncodeToString(bytes) {
-  var b = new _base64__WEBPACK_IMPORTED_MODULE_0__["Base64"]();
-  var string64 = b.encodeIgnoreUtf8(bytes);
-  return string64;
-}
 
 /***/ }),
 
@@ -43812,7 +43768,7 @@ function base64EncodeToString(bytes) {
 /*!***************************!*\
   !*** ./src/utils/code.js ***!
   \***************************/
-/*! exports provided: bin2String, arrayEquals, stringToBytes, byte2hexStr, bytesToString, hextoString, byteArray2hexStr, base64DecodeFromString, base64EncodeToString, hexChar2byte, isHexChar, hexStr2byteArray, strToDate, isNumber, getStringType */
+/*! exports provided: bin2String, arrayEquals, stringToBytes, bytesToString, hextoString, hexChar2byte, isHexChar, hexStr2byteArray, byte2hexStr, byteArray2hexStr, base64DecodeFromString, base64EncodeToString, strToDate, isNumber, getStringType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43820,44 +43776,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bin2String", function() { return bin2String; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayEquals", function() { return arrayEquals; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stringToBytes", function() { return stringToBytes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bytesToString", function() { return bytesToString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hextoString", function() { return hextoString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hexChar2byte", function() { return hexChar2byte; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isHexChar", function() { return isHexChar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hexStr2byteArray", function() { return hexStr2byteArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "byte2hexStr", function() { return byte2hexStr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "byteArray2hexStr", function() { return byteArray2hexStr; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64DecodeFromString", function() { return base64DecodeFromString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "base64EncodeToString", function() { return base64EncodeToString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strToDate", function() { return strToDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStringType", function() { return getStringType; });
-/* harmony import */ var _bytes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bytes */ "./src/utils/bytes.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "byte2hexStr", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["byte2hexStr"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "bytesToString", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["bytesToString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hextoString", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["hextoString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "byteArray2hexStr", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["byteArray2hexStr"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "base64DecodeFromString", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["base64DecodeFromString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "base64EncodeToString", function() { return _bytes__WEBPACK_IMPORTED_MODULE_0__["base64EncodeToString"]; });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _base64__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./base64 */ "./src/utils/base64.js");
 
 
 function bin2String(array) {
-  // TODO Do we need this alias?
-  return Object(_bytes__WEBPACK_IMPORTED_MODULE_0__["bytesToString"])(array);
+  return String.fromCharCode.apply(String, _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(array));
 }
-function arrayEquals(array1, array2, strict) {
+function arrayEquals(array1, array2) {
   if (array1.length != array2.length) return false;
   var i;
 
   for (i = 0; i < array1.length; i++) {
-    if (strict) {
-      if (array1[i] != array2[i]) return false;
-    } else if (JSON.stringify(array1[i]) != JSON.stringify(array2[i])) return false;
+    if (array1[i] != array2[i]) return false;
   }
 
   return true;
 }
 function stringToBytes(str) {
-  if (typeof str !== 'string') throw new Error('The passed string is not a string');
   var bytes = new Array();
   var len;
   var c;
@@ -43883,11 +43832,45 @@ function stringToBytes(str) {
 
   return bytes;
 }
+function bytesToString(arr) {
+  if (typeof arr === 'string') return arr;
+  var str = '';
 
+  for (var i = 0; i < arr.length; i++) {
+    var one = arr[i].toString(2);
+    var v = one.match(/^1+?(?=0)/);
+
+    if (v && one.length == 8) {
+      var bytesLength = v[0].length;
+      var store = arr[i].toString(2).slice(7 - bytesLength);
+
+      for (var st = 1; st < bytesLength; st++) {
+        store += arr[st + i].toString(2).slice(2);
+      }
+
+      str += String.fromCharCode(parseInt(store, 2));
+      i += bytesLength - 1;
+    } else str += String.fromCharCode(arr[i]);
+  }
+
+  return str;
+}
+function hextoString(hex) {
+  var arr = hex.split("");
+  var out = "";
+
+  for (var i = 0; i < arr.length / 2; i++) {
+    var tmp = "0x".concat(arr[i * 2]).concat(arr[i * 2 + 1]);
+    var charValue = String.fromCharCode(tmp);
+    out += charValue;
+  }
+
+  return out;
+}
 function hexChar2byte(c) {
-  var d;
+  var d = 0;
   if (c >= 'A' && c <= 'F') d = c.charCodeAt(0) - 'A'.charCodeAt(0) + 10;else if (c >= 'a' && c <= 'f') d = c.charCodeAt(0) - 'a'.charCodeAt(0) + 10;else if (c >= '0' && c <= '9') d = c.charCodeAt(0) - '0'.charCodeAt(0);
-  if (typeof d === 'number') return d;else throw new Error('The passed hex char is not a valid hex char');
+  return d;
 }
 function isHexChar(c) {
   if (c >= 'A' && c <= 'F' || c >= 'a' && c <= 'f' || c >= '0' && c <= '9') {
@@ -43897,7 +43880,6 @@ function isHexChar(c) {
   return 0;
 }
 function hexStr2byteArray(str) {
-  if (typeof str !== 'string') throw new Error('The passed string is not a string');
   var byteArray = Array();
   var d = 0;
   var j = 0;
@@ -43915,14 +43897,35 @@ function hexStr2byteArray(str) {
         byteArray[k++] = d;
         d = 0;
       }
-    } else throw new Error('The passed hex char is not a valid hex string');
+    }
   }
 
   return byteArray;
+}
+function byte2hexStr(byte) {
+  var hexByteMap = "0123456789ABCDEF";
+  var str = "";
+  str += hexByteMap.charAt(byte >> 4);
+  str += hexByteMap.charAt(byte & 0x0f);
+  return str;
+}
+function byteArray2hexStr(byteArray) {
+  return byteArray.reduce(function (string, byte) {
+    return string + byte2hexStr(byte);
+  }, '');
+}
+function base64DecodeFromString(string64) {
+  var b = new _base64__WEBPACK_IMPORTED_MODULE_1__["Base64"]();
+  var decodeBytes = b.decodeToByteArray(string64);
+  return decodeBytes;
+}
+function base64EncodeToString(bytes) {
+  var b = new _base64__WEBPACK_IMPORTED_MODULE_1__["Base64"]();
+  var string64 = b.encodeIgnoreUtf8(bytes);
+  return string64;
 } //yyyy-MM-DD HH-mm-ss
 
 function strToDate(str) {
-  if (!/^\d{4}-\d{2}-\d{2}( \d{2}-\d{2}-\d{2}|)/.test(str)) throw new Error('The passed date string is not valid');
   var tempStrs = str.split(" ");
   var dateStrs = tempStrs[0].split("-");
   var year = parseInt(dateStrs[0], 10);
@@ -43932,7 +43935,7 @@ function strToDate(str) {
   if (tempStrs.length > 1) {
     var timeStrs = tempStrs[1].split("-");
     var hour = parseInt(timeStrs[0], 10);
-    var minute = parseInt(timeStrs[1], 10);
+    var minute = parseInt(timeStrs[1], 10) - 1;
     var second = parseInt(timeStrs[2], 10);
     return new Date(year, month, day, hour, minute, second);
   }
@@ -43951,15 +43954,7 @@ function getStringType(str) {
   if (null == str) return -1;
   if (typeof str != 'string') return -1;
   if (str.length == 0 || str == "") return -1;
-  var i = 0; // TODO Should we return 1 if someone passes a full, 42-chars long address?
-  // if (str.length == 42 && /^41/.test(str)) {
-  //     for (; i < 40; i++) {
-  //         var c = str.charAt(i+2);
-  //
-  //         if (!isHexChar(c))
-  //             break;
-  //     }
-  // } else
+  var i = 0;
 
   if (str.length == 40) {
     for (; i < 40; i++) {
@@ -43975,11 +43970,11 @@ function getStringType(str) {
     if (!isNumber(c)) break;
   }
 
-  if (i == str.length) return 2; // All Decimal number, BlockNumber
+  if (i == str.length) return 2; //Alll Decimal number, BlockNumber
 
   for (i = 0; i < str.length; i++) {
     var c = str.charAt(i);
-    if (c > ' ') return 3; // At least one visible character
+    if (c > ' ') return 3; //At least one visible character
   }
 
   return -1;
@@ -44254,7 +44249,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var utils = {
   isValidURL: function isValidURL(url) {
-    if (typeof url !== 'string') return false;
     return validator__WEBPACK_IMPORTED_MODULE_7___default.a.isURL(url.toString(), {
       protocols: ['http', 'https']
     });
@@ -44285,7 +44279,7 @@ var utils = {
     return typeof obj === 'function';
   },
   isHex: function isHex(string) {
-    return typeof string === 'string' && !isNaN(parseInt(string, 16)) && /^(0x|)[a-fA-F0-9]+$/.test(string);
+    return typeof string === 'string' && !isNaN(parseInt(string, 16));
   },
   isInteger: function isInteger(number) {
     return Number.isInteger(Number(number));
