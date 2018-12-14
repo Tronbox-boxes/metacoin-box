@@ -14,7 +14,7 @@ module.exports = {
       solidityNode: "http://127.0.0.1:9090",
       eventServer: "http://127.0.0.1:9090",
 
-      network_id: "*"
+      network_id: "9090"
     },
     mainnet: {
       // Don't put your private key here:
@@ -40,7 +40,7 @@ Then, run the migration with:
       solidityNode: "https://api.trongrid.io",
       eventServer: "https://api.trongrid.io",
 
-      network_id: "*"
+      network_id: "1"
     },
     shasta: {
       privateKey: process.env.PK,
@@ -55,7 +55,7 @@ Then, run the migration with:
       solidityNode: "https://api.shasta.trongrid.io",
       eventServer: "https://api.shasta.trongrid.io",
 
-      network_id: "*"
+      network_id: "2"
     }
   }
 }

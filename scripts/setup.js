@@ -1,10 +1,8 @@
 var fs = require('fs')
 var path = require('path')
+var MetaCoin = require('../build/contracts/MetaCoin')
 
-const address = process.argv[2]
-    .split('MetaCoin:')[1]
-    .split('(hex) ')[1]
-    .split('\n')[0]
+const address = MetaCoin.networks['2'].address
 
 console.log('The app has been configured.')
 console.log('Run "npm run dev" to start it.')
