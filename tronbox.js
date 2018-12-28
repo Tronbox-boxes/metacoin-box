@@ -9,7 +9,7 @@ module.exports = {
       network_id: "9090"
     },
     shasta: {
-      privateKey: process.env.PK,
+      privateKey: process.env.PRIVATE_KEY_SHASTA,
       consume_user_resource_percent: 30,
       fee_limit: 100000000,
       fullHost: "https://api.shasta.trongrid.io",
@@ -17,11 +17,11 @@ module.exports = {
     },
     mainnet: {
       // Don't put your private key here:
-      privateKey: process.env.PK,
+      privateKey: process.env.PRIVATE_KEY_MAINNET,
       /*
 Create a .env file (it must be gitignored) containing something like
 
-  export PK=4E7FECCB71207B867C495B51A9758B104B1D4422088A87F4978BE64636656243
+  export PRIVATE_KEY_MAINNET=4E7FECCB71207B867C495B51A9758B104B1D4422088A87F4978BE64636656243
 
 Then, run the migration with:
 
