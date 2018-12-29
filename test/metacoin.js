@@ -7,7 +7,11 @@ var MetaCoin = artifacts.require("./MetaCoin.sol");
 
 contract('MetaCoin', function (accounts) {
 
-  before(function() {
+  let meta
+
+  before(async function () {
+
+    meta = await MetaCoin.deployed()
     if(accounts.length < 3) {
       // Set your own accounts if you are not using Tron Quickstart
 
@@ -15,20 +19,18 @@ contract('MetaCoin', function (accounts) {
   })
 
   it("should verify that there are at least three available accounts", async function () {
-    if (accounts.length < 3) {
+    if(accounts.length < 3) {
       console.log(chalk.blue('\nYOUR ATTENTION, PLEASE.]\nTo test MetaCoin you should use Tron Quickstart (https://github.com/tronprotocol/docker-tron-quickstart) as your private network.\nAlternatively, you must set your own accounts in the "before" statement in "test/metacoin.js".\n'))
     }
     assert.isTrue(accounts.length >= 3)
   })
 
   it("should verify that the contract has been deployed by accounts[0]", async function () {
-    const instance = await MetaCoin.deployed();
-    assert.equal(await instance.getOwner(), tronWeb.address.toHex(accounts[0]))
+    assert.equal(await meta.getOwner(), tronWeb.address.toHex(accounts[0]))
   });
 
   it("should put 10000 MetaCoin in the first account", async function () {
-    const instance = await MetaCoin.deployed();
-    const balance = await instance.getBalance(accounts[0], {from: accounts[0]});
+    const balance = await meta.getBalance(accounts[0], {from: accounts[0]});
     assert.equal(balance, 10000, "10000 wasn't in the first account");
   });
 
@@ -40,6 +42,30 @@ contract('MetaCoin', function (accounts) {
     const metaCoinEthBalance = (await meta.getBalanceInEth.call(accounts[0])).toNumber();
     assert.equal(metaCoinEthBalance, 2 * metaCoinBalance, "Library function returned unexpected function, linkage may be broken");
   });
+
+  it("should send coins from account 0 to 3 and verify that a Transfer event has been emitted", function (done) {
+    assert.isTrue(accounts[3] ? true : false, 'accounts[1] does not exist. Use Tron Quickstart!')
+
+    this.timeout(20000)
+    MetaCoin.deployed()
+        .then(meta => {
+          return tronWeb.contract().at(meta.address)
+              .then(meta2 => {
+                meta2.Transfer().watch((err, res) => {
+                  if(res) {
+                    assert.equal(res.result._from, tronWeb.address.toHex(accounts[0]))
+                    assert.equal(res.result._to, tronWeb.address.toHex(accounts[3]))
+                    assert.equal(res.result._value, 1)
+                    done()
+                  }
+                })
+
+                meta.sendCoin(accounts[3], 1, {
+                  from: accounts[0]
+                });
+              })
+        })
+  })
 
   it("should send coins from account 0 to 1", async function () {
     assert.isTrue(accounts[1] ? true : false, 'accounts[1] does not exist. Use Tron Quickstart!')
