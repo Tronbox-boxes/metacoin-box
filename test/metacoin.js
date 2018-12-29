@@ -82,19 +82,4 @@ contract('MetaCoin', function (accounts) {
     assert.equal(await meta.getBalance.call(accounts[1]), account_two_starting_balance + 10, "Amount wasn't correctly sent to the receiver");
   });
 
-  it("should send coins from account 1 to 2", async function () {
-    assert.isTrue(accounts[1] && accounts[2] ? true : false, 'accounts[1] and/or accounts[2] do not exist. Use Tron Quickstart!')
-
-    this.timeout(30000)
-    const meta = await MetaCoin.deployed();
-    wait(3);
-    const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
-    const account_three_starting_balance = (await meta.getBalance.call(accounts[2])).toNumber();
-    await meta.sendCoin(accounts[2], 5, {
-      from: accounts[1],
-      shouldPollResponse: true
-    });
-    assert.equal(await meta.getBalance.call(accounts[1]), account_two_starting_balance - 5, "Amount wasn't correctly sent to the receiver");
-    assert.equal(await meta.getBalance.call(accounts[2]), account_three_starting_balance + 5, "Amount wasn't correctly sent to the receiver");
-  });
 });
