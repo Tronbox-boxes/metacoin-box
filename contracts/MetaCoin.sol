@@ -10,9 +10,8 @@ contract MetaCoin {
 	mapping (address => uint) balances;
 
 	event Transfer(address _from, address _to, uint256 _value);
-	event Log(string s);
 
-  address owner;
+    address owner;
 
 	constructor(uint initialBalance) public {
 	  owner = msg.sender;
