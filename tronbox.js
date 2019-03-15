@@ -8,7 +8,7 @@ module.exports = {
       userFeePercentage: 0,
       feeLimit: 1e8,
       fullHost: 'http://127.0.0.1:' + port,
-      network_id: port
+      network_id: "9"
     },
     shasta: {
       privateKey: process.env.PRIVATE_KEY_SHASTA,
