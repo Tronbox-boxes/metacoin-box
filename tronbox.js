@@ -15,14 +15,14 @@ Then, run the migration with:
   source .env && tronbox migrate --network mainnet
 
 */
-      userFeePercentage: 100,
+      userFeePercentage: 0,
       feeLimit: 1e8,
       fullHost: "https://api.trongrid.io",
       network_id: "1"
     },
     shasta: {
       privateKey: process.env.PRIVATE_KEY_SHASTA,
-      userFeePercentage: 50,
+      userFeePercentage: 0,
       feeLimit: 1e8,
       fullHost: "https://api.shasta.trongrid.io",
       network_id: "2"
