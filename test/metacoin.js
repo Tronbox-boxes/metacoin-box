@@ -37,7 +37,7 @@ contract('MetaCoin', function (accounts) {
   it("should call a function that depends on a linked library", async function () {
     this.timeout(10000);
     const meta = await MetaCoin.deployed();
-    wait(1);
+    await wait(1);
     const metaCoinBalance = (await meta.getBalance.call(accounts[0])).toNumber();
     const metaCoinEthBalance = (await meta.getBalanceInEth.call(accounts[0])).toNumber();
     assert.equal(metaCoinEthBalance, 2 * metaCoinBalance, "Library function returned unexpected function, linkage may be broken");
@@ -72,7 +72,7 @@ contract('MetaCoin', function (accounts) {
 
     this.timeout(10000)
     const meta = await MetaCoin.deployed();
-    wait(3);
+    await wait(3);
     const account_one_starting_balance = (await meta.getBalance.call(accounts[0])).toNumber();
     const account_two_starting_balance = (await meta.getBalance.call(accounts[1])).toNumber();
     await meta.sendCoin(accounts[1], 10, {
