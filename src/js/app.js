@@ -150,7 +150,6 @@ App = {
       tronWeb.address.fromPrivateKey(metacoinConfig.privateKey)
     ]
 
-
     const account = await tronWeb.createAccount()
     this.accounts.push(account.address.base58);
     $("#contractAddress").text(this.contractAddress)
@@ -184,7 +183,7 @@ App = {
 
   transfer: function () {
     var that = this;
-    var count = $("#dev_count").val();
+    var count = $("#dev_count").val() || 0;
     const to = this.accounts[1];
     const amount = parseInt(count);
     $("#loading").css({display: 'block'});
