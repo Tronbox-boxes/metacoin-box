@@ -69,8 +69,6 @@ tronbox migrate --reset
 tronbox test
 ```
 
-The first time you execute a migration, the process can stuck. It is a know bug that we are trying to fix. Just Ctrl-c to stop the process. As you can verify, the contracts have been correctly deployed.
-
 ### Run the example dApp on Shasta
 
 1. You need an account with some Shasta TRX. 
