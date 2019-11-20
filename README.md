@@ -52,21 +52,29 @@ The first time you execute a migration, the process can stuck. It is a know bug 
 
 ### Run the example dApp on Shasta
 
-1. You need an account with some Shasta TRX. If you don't have any, open https://www.trongrid.io/shasta/ and require some Shasta TRX at the bottom of the page.
+1. You need an account with some Shasta TRX. 
 
-2. Edit your `tronbox.js` and in the section `shasta`, set the privateKey of the account for which you requested Shasta TRX.
+2. If you don't have a Tron wallet, install the Chrome Extension version of TronLink, from https://www.tronlink.org/ and create an account.
 
-3. Verify that your account is not empty opening a page like https://api.shasta.trongrid.io/wallet/getaccount?address=41559f48a697a006cfc35009cb059a400fc526b31f  using, of course, your account address.
+3. Click the TronLink extension, click on Settings and Node Manage and select Shasta. 
 
-4. Set the dApp. The dApp needs to know the address where the MetaCoin contract has been deployed. We have put in the box a special script:
+4. If you don't have any Shasta TRX, open https://www.trongrid.io/faucet and require some Shasta TRX at the bottom of the page.
+
+5. Add a file called `.env` in the root of this repo and edit it, adding a line with your Private Key, somethink like:
+ ```
+ export PRIVATE_KEY_SHASTA=0122194812081292938435739857438538457349573485358345345934583554
+ ```
+ and save it.
+ 
+6. Set the dApp. The dApp needs to know the address where the MetaCoin contract has been deployed. We have put in the box a special script:
 
 ```
 npm run setup-dapp
 ```
 
-It will execute the migration, retrieve the contract address and save it in the file `src/js/metacoin-config.js`.
+It will execute the migration, retrieve the contract address and save it in the file `src/js/metacoin-config.js`. This won't work if does not find the `.env` file.
 
-5. Run the dApp:
+7. Run the dApp:
 
 ```
 npm run dev
@@ -74,7 +82,7 @@ npm run dev
 It automatically will open the dApp in the default browser.
 
 
-6. Enjoy your working Tron dApp!
+8. Enjoy your working Tron dApp!
 
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-tronbox migrate --reset --network shasta
+source .env && tronbox migrate --reset --network shasta
 node ./scripts/setup.js
 
