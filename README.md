@@ -1,6 +1,27 @@
 # MetaCoin TronBox Example
 Originally forked from [truffle-box/metacoin](https://github.com/truffle-box/metacoin-box).
 
+### Install TronBox
+
+If you don't have Node on your Mac/Linux computer, install it using preferably NVM. On Linux/Mac you can run
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+```
+after open a new terminal and install the version of Node you prefer, for example the stable v10:
+```
+nvm install lts/dubnium
+```
+
+On Windows, you can install Nvm following the instructions at  
+https://github.com/coreybutler/nvm-windows
+and continuing the the second step.
+
+In any case, when you have Node installed, install TronBox globally:
+```
+npm i -g tronbox
+```
+
 ### Configure Network Information for TronBox
 
 Network configuration is required by TronBox.
