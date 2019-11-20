@@ -1,6 +1,6 @@
 {
   "name": "metacoin-box",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "",
   "directories": {
     "test": "test"
@@ -18,7 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "chalk": "^2.4.1",
-    "lite-server": "^2.4.0"
+    "lite-server": "^2.5.4"
   },
   "dependencies": {}
 }
