@@ -15,7 +15,6 @@ nvm install lts/dubnium
 
 On Windows, you can install Nvm following the instructions at  
 https://github.com/coreybutler/nvm-windows
-and continuing the the second step.
 
 In any case, when you have Node installed, install TronBox globally:
 ```
