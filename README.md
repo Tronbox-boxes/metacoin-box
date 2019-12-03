@@ -24,7 +24,7 @@ npm i -g tronbox
 ### Configure Network Information for TronBox
 
 Network configuration is required by TronBox.
-In our case we use Tron Quickstart for local testing, and TroGrid for as testnet. In the following example, we assume you are using TronQuickstart as local testnet, and you connect to Shasta as a remove testnet.
+In our case we use Tron Quickstart for local testing, and TroGrid for as testnet. In the following example, we assume you are using TronQuickstart as local testnet, and you connect to Shasta testnet.
 
 ```
 module.exports = {
