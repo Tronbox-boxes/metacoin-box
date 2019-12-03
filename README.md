@@ -102,5 +102,7 @@ It automatically will open the dApp in the default browser.
 
 8. Enjoy your working Tron dApp!
 
+### What else?
 
+If you have questions, drop me a line at francesco@sullo.co
 
