@@ -83,7 +83,7 @@ tronbox test
  ```
  export PRIVATE_KEY_SHASTA=0122194812081292938435739857438538457349573485358345345934583554
  ```
- and save it.
+ and save it. You can find an example in `sample-env`.
  
 6. Set the dApp. The dApp needs to know the address where the MetaCoin contract has been deployed. We have put in the box a special script:
 
