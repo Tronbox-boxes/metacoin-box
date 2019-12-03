@@ -29,23 +29,22 @@ In our case we use Tron Quickstart for local testing, and TroGrid for as testnet
 ```
 module.exports = {
   networks: {
-
-// trontools/quickstart docker image
     development: {
-          // For trontools/quickstart docker image
-          privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
-          consume_user_resource_percent: 30,
-          fee_limit: 100000000,
-          fullHost: "http://127.0.0.1:9090",
-          network_id: "9090"
-        },
-        shasta: {
-          privateKey: process.env.PRIVATE_KEY_SHASTA,
-          consume_user_resource_percent: 30,
-          fee_limit: 100000000,
-          fullHost: "https://api.shasta.trongrid.io",
-          network_id: "2"
-        }
+      // For trontools/quickstart docker image
+      privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
+      consume_user_resource_percent: 0,
+      fee_limit: 100000000,
+      fullHost: "http://127.0.0.1:9090",
+      network_id: "9090"
+    },
+    shasta: {
+      // Shasta testet
+      privateKey: process.env.PRIVATE_KEY_SHASTA,
+      consume_user_resource_percent: 50,
+      fee_limit: 100000000,
+      fullHost: "https://api.shasta.trongrid.io",
+      network_id: "2"
+    }
   }
 }
 ```
