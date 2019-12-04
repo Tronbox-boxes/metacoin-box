@@ -27,6 +27,14 @@ Then, run the migration with:
       fullHost: 'https://api.shasta.trongrid.io',
       network_id: '2'
     },
+    nile: {
+      privateKey: process.env.PRIVATE_KEY_NILE,
+      userFeePercentage: 100,
+      feeLimit: 1e8,
+      fullHost: 'https://api.trongrid.io/_nile',
+      eventServer: 'https://eventtest.nileex.io',
+      network_id: '3'
+    },
     development: {
       // For trontools/quickstart docker image
       privateKey: 'da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0',
