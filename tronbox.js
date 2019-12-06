@@ -29,9 +29,10 @@ Then, run the migration with:
     },
     nile: {
       privateKey: process.env.PRIVATE_KEY_NILE,
-      userFeePercentage: 100,
+      userFeePercentage: 50,
       feeLimit: 1e8,
-      fullHost: 'https://api.trongrid.io/_nile',
+      fullNode: 'https://httpapi.nileex.io/wallet',
+      solidityNode: 'https://httpapi.nileex.io/walletsolidity',
       eventServer: 'https://eventtest.nileex.io',
       network_id: '3'
     },
