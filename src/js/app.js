@@ -3,23 +3,18 @@ var tronWeb
 
 try {
   contractAddress = metacoinConfig.contractAddress
-  tronWeb = new TronWeb(
-      metacoinConfig.fullHost,
-      metacoinConfig.fullHost,
-      metacoinConfig.fullHost,
-      metacoinConfig.privateKey
-  )
+  tronWeb = new TronWeb({
+    fullHost: metacoinConfig.fullHost
+  })
 } catch (err) {
   alert('The app looks not configured. Please run `npm run migrate`')
 }
-
 
 App = {
   tronWebProvider: null,
   contracts: {},
   accounts: [],
   contractAddress: contractAddress,
-  privateKey: "da146374a75310b9666e834ee4ad0866d6f4035967bfc76217c5a495fff9f0d0",
   feeLimit: 100000000,
   callValue: 0,
   abi: [
@@ -147,11 +142,12 @@ App = {
   init: async function () {
 
     this.accounts = [
-      tronWeb.address.fromPrivateKey(metacoinConfig.privateKey)
+      metacoinConfig.ownerAddress
     ]
 
     const account = await tronWeb.createAccount()
-    this.accounts.push(account.address.base58);
+    // this.accounts.push(account.address.base58);
+    this.accounts.push('TEWRDwnp1JKuNxtPT6sThWe7zgZqjHQeqG');
     $("#contractAddress").text(this.contractAddress)
     $("#accountA").text(this.accounts[0])
     $("#accountB").text(this.accounts[1])

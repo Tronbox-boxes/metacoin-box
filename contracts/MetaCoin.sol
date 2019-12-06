@@ -15,14 +15,14 @@ contract MetaCoin {
 
   constructor(uint initialBalance) public {
     owner = msg.sender;
-    balances[msg.sender] = initialBalance;
+    balances[owner] = initialBalance;
   }
 
   function sendCoin(address receiver, uint amount) public returns (bool sufficient) {
-    if (balances[msg.sender] < amount) return false;
-    balances[msg.sender] -= amount;
+    if (balances[owner] < amount) return false;
+    balances[owner] -= amount;
     balances[receiver] += amount;
-    emit Transfer(msg.sender, receiver, amount);
+    emit Transfer(owner, receiver, amount);
     return true;
   }
 

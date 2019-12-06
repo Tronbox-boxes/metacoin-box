@@ -18,7 +18,8 @@
   "license": "MIT",
   "devDependencies": {
     "chalk": "^2.4.1",
-    "lite-server": "^2.5.4"
+    "lite-server": "^2.5.4",
+    "tronweb": "^2.8.1"
   },
   "dependencies": {}
 }
