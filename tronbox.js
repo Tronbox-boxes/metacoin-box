@@ -29,11 +29,9 @@ Then, run the migration with:
     },
     nile: {
       privateKey: process.env.PRIVATE_KEY_NILE,
-      userFeePercentage: 50,
+      userFeePercentage: 100,
       feeLimit: 1e8,
-      fullNode: 'https://httpapi.nileex.io/wallet',
-      solidityNode: 'https://httpapi.nileex.io/walletsolidity',
-      eventServer: 'https://eventtest.nileex.io',
+      fullHost: 'https://api.nileex.io',
       network_id: '3'
     },
     development: {
